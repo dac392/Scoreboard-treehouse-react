@@ -28,6 +28,12 @@ class App extends React.Component {
     ]
   };
 
+  handleScoreChange = (index, delta) => {
+    this.setState( prevState => ({
+      score: prevState.players[index].score += delta
+    }));
+  }
+
   handleRemovePlayer = (id) => {
     this.setState( prevState => {
       return {
@@ -45,12 +51,14 @@ class App extends React.Component {
         />
   
         {/* Players list */}
-        {this.state.players.map( player =>
+        {this.state.players.map( (player, index) =>
           <Player 
             name={player.name}
             score={player.score}
             id={player.id}
             key={player.id.toString()} 
+            index={index}
+            changeScore={this.handleScoreChange}
             removePlayer={this.handleRemovePlayer}           
           />
         )}
