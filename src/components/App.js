@@ -39,15 +39,17 @@ class App extends React.Component {
 
   handleAddPlayer = (name)=>{
     this.setState(
-      {
-        players:[
-          ...this.state.players,
-          {
-            name,
-            score:0,
-            id: this.prevPlayerId +=1
-          }
-        ]
+      prevState => {
+        return {
+          players:[
+            ...prevState.players,
+            {
+              name,
+              score:0,
+              id: this.prevPlayerId +=1
+            }
+          ]
+        }
       }
     );
   }
