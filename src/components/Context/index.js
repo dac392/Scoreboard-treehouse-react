@@ -1,5 +1,92 @@
-import React from "react";
+import React, { Component } from "react";
 
 const scoreBoardContext = React.createContext();
-export const Provider = scoreBoardContext.Provider;
+export class Provider extends Component {
+    state = {
+        players: [
+          {
+            name: "Guil",
+            score: 0,
+            id: 1
+          },
+          {
+            name: "Treasure",
+            score: 0,
+            id: 2
+          },
+          {
+            name: "Ashley",
+            score: 0,
+            id: 3
+          },
+          {
+            name: "James",
+            score: 0,
+            id: 4
+          }
+        ]
+    };
+    prevPlayerId = 4;
+
+    handleScoreChange = (index, delta) => {
+        this.setState( prevState => ({
+        score: prevState.players[index].score += delta
+        }));
+    }
+
+    handleAddPlayer = (name)=>{
+        let newPlayer = {
+        name,
+        score:0,
+        id: this.prevPlayerId +=1
+        };
+        this.setState(
+        prevState => {
+            return {
+            players:[
+                ...prevState.players,
+                newPlayer
+            ]
+            }
+        }
+        );
+    }
+
+    handleRemovePlayer = (id) => {
+        this.setState( prevState => {
+        return {
+            players: prevState.players.filter(p => p.id !== id)
+        };
+        });
+    }
+
+    getHighScore = () => {
+        const scores = this.state.players.map( p=>p.score );
+        const highScore = Math.max(...scores);
+        if(highScore) {
+        return highScore;
+        }
+        return null;
+    }
+
+    render(){
+        return (
+            <scoreBoardContext.Provider value={
+                {
+                  players: this.state.players,
+                  
+                  actions: {
+                    changeScore: this.handleScoreChange,
+                    removePlayer: this.handleRemovePlayer,
+                    addPlayer: this.handleAddPlayer,
+                    getHighScore: this.getHighScore
+                  }
+                }
+              }>
+                { this.props.children}
+              </scoreBoardContext.Provider>
+        );    
+    }
+}
+
 export const Consumer = scoreBoardContext.Consumer;
