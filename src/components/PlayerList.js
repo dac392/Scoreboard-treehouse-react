@@ -1,25 +1,22 @@
-import React from "react";
-import { Consumer } from "./Context";
+import React, { useContext } from "react";
+import { ScoreBoardContext } from "./Context";
 import Player from './Player';
 
 const PlayerList = (props)=>{
+    const { players } = useContext(ScoreBoardContext);
     return (
-        <Consumer>
-            { ({players, actions}) => (
-                <React.Fragment>
-                    {   
-                        players.map( (player, index)=>(
-                            <Player 
-                                {...player}
-                                key={player.id.toString()} 
-                                index={index}
-                                isHighScore={actions.getHighScore() === player.score}        
-                            />
-                        ))
-                    }
-                </React.Fragment>
-            )}
-        </Consumer>
+        <>
+            {   
+                players.map( (player, index)=>(
+                    <Player 
+                        {...player}
+                        key={player.id.toString()} 
+                        index={index}
+                        isHighScore={actions.getHighScore() === player.score}        
+                    />
+                ))
+            }
+        </>
     );
 }
 
