@@ -1,18 +1,14 @@
-import React from "react";
-import { Consumer } from "./Context";
+import React, { useContext } from "react";
+import { ScoreBoardContext } from "./Context";
 
 const Counter = ({ index })=>{
+    const { players, actions } = useContext(ScoreBoardContext);
     return (
-        <Consumer>
-            { ({ actions, players })=> (
-                <div className="counter">
-                    <button className="counter-action decrement" onClick={()=>actions.changeScore(index, -1)}> - </button>
-                    <span className="counter-score">{ players[index].score }</span>
-                    <button className="counter-action increment" onClick={()=>actions.changeScore(index, +1)}> + </button>
-                </div>
-            )}
-        </Consumer>
-
+        <div className="counter">
+            <button className="counter-action decrement" onClick={()=>actions.changeScore(index, -1)}> - </button>
+            <span className="counter-score">{ players[index].score }</span>
+            <button className="counter-action increment" onClick={()=>actions.changeScore(index, +1)}> + </button>
+        </div>
     );
 
   }
