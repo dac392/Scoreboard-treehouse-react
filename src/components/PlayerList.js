@@ -3,7 +3,8 @@ import { ScoreBoardContext } from "./Context";
 import Player from './Player';
 
 const PlayerList = (props)=>{
-    const { players } = useContext(ScoreBoardContext);
+    const {players, actions} = useContext(ScoreBoardContext);
+
     return (
         <>
             {   

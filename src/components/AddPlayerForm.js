@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { ScoreBoardContext } from "./Context";
 
 const AddPlayerForm = ()=> {
     const playerInput = useRef();
-    const [ actions ] = useContext(ScoreBoardContext);
+    const { actions } = useContext(ScoreBoardContext);
 
     const handleSubmit = (e)=>{
         e.preventDefault();

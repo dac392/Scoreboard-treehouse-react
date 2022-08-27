@@ -3,8 +3,9 @@ import { ScoreBoardContext } from './Context';
 import Counter from './Counter';
 import Icon from './Icon';
 
-const Player = ({ index }) => {
+const Player = ({ index, isHighScore }) => {
   const { players, actions } = useContext(ScoreBoardContext);
+
   return ( 
     <div className="player">
       <span className="player-name">
@@ -12,7 +13,7 @@ const Player = ({ index }) => {
           className="remove-player" 
           onClick={() => actions.removePlayer(players[index].id)}>✖
         </button>
-        <Icon isHighScore={this.props.isHighScore} />
+        <Icon isHighScore={isHighScore} />
         { players[index].name }
       </span>
       <Counter index={index} />
