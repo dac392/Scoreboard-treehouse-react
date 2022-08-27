@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { Consumer } from './Context';
 import Counter from './Counter';
 import Icon from './Icon';
 
@@ -9,21 +10,23 @@ class Player extends PureComponent{
       id,
       score,
       index,
-      removePlayer,
-      changeScore
     } = this.props
     return (
       <div className="player">
-        <span className="player-name">
-          <button className="remove-player" onClick={() => removePlayer(id)}>✖</button>
-          <Icon isHighScore={this.props.isHighScore} />
-          { name }
-        </span>
-  
+        <Consumer>
+          {
+            context=>(
+              <span className="player-name">
+                <button className="remove-player" onClick={() => context.actions.removePlayer(id)}>✖</button>
+                <Icon isHighScore={this.props.isHighScore} />
+                { name }
+              </span>
+            )
+          }
+        </Consumer>
         <Counter 
             score={score} 
             index={index}
-            changeScore={changeScore}
         />
       </div>
     );

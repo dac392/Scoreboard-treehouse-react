@@ -77,20 +77,21 @@ class App extends React.Component {
     const highScore = this.getHighScore();
 
     return (
-      <Provider value={this.state.players}>
-      <div className="scoreboard">
-        <Header 
-          title="Scoreboard" 
-        />
-  
-        {/* Players list */}
-        <PlayerList 
-          changeScore={this.handleScoreChange}
-          removePlayer={this.handleRemovePlayer}
-          highScore={highScore}
-        />
-        <AddPlayerForm addPlayer={this.handleAddPlayer}/>
-      </div>
+      <Provider value={
+        {
+          players: this.state.players,
+          actions: {
+            changeScore: this.handleScoreChange,
+            removePlayer: this.handleRemovePlayer,
+            addPlayer: this.handleAddPlayer
+          }
+        }
+      }>
+        <div className="scoreboard">
+          <Header title="Scoreboard" />
+          <PlayerList highScore={highScore} /> {/* we could move this into the provider but i don't quite feel like it */}
+          <AddPlayerForm />
+        </div>
       </Provider>
     );
   }
